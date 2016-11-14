@@ -33,6 +33,10 @@ object Chain {
     foldRight(as, 0)((x: A, y: Int) => 1 + y)
   }
 
+  def lengthLeft[A](as: Chain[A]): Int = {
+    foldLeft(as, 0)((x: Int, y: A) => 1 + x)
+  }
+
   def apply[A](as: A*): Chain[A] = {
     if (as.isEmpty) Nil
     else Cons(as.head, apply(as.tail: _*))
@@ -82,7 +86,9 @@ Chain.productLeft(Chain())
 Chain.product(Chain(1, 2, 3))
 Chain.productLeft(Chain(1, 2, 3))
 Chain.length(Chain())
+Chain.lengthLeft(Chain())
 Chain.length(Chain(1, 2, 3))
+Chain.lengthLeft(Chain(1, 2, 3))
 Chain.tail(Chain())
 Chain.tail(Chain(1.0, 2.0, 3.0))
 Chain.tail(Chain('a', 'b', 'c'))
