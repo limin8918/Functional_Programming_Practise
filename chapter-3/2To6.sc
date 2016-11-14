@@ -3,7 +3,7 @@ case object Nil extends Chain[Nothing]
 case class Cons[A](head: A, tail: Chain[A]) extends Chain[A]
 
 object Chain {
-  def foldRight[B](chain: Chain[B], r: B)(f: (B, B) => B): B = chain match {
+  def foldRight[A, B](chain: Chain[A], r: B)(f: (A, B) => B): B = chain match {
     case Nil => r
     case Cons(head, tail) => f(head, foldRight(tail, r)(f))
   }
@@ -16,9 +16,8 @@ object Chain {
     foldRight(doubleChain, 1.0)(_ * _)
   }
 
-  def length[A](as: Chain[A]): Int = as match {
-    case Nil => 0
-    case Cons(head, tail) => 1 + length(tail)
+  def length[A](as: Chain[A]): Int = {
+    foldRight(as, 0)((x: A, y: Int) => 1 + y)
   }
 
   def apply[A](as: A*): Chain[A] = {
