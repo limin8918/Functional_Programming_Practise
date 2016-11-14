@@ -16,6 +16,11 @@ object Chain {
     foldRight(doubleChain, 1.0)(_ * _)
   }
 
+  def length[A](as: Chain[A]): Int = as match {
+    case Nil => 0
+    case Cons(head, tail) => 1 + length(tail)
+  }
+
   def apply[A](as: A*): Chain[A] = {
     if (as.isEmpty) Nil
     else Cons(as.head, apply(as.tail: _*))
@@ -60,6 +65,8 @@ Chain.sum(Chain())
 Chain.sum(Chain(1, 2, 3))
 Chain.product(Chain())
 Chain.product(Chain(1, 2, 3))
+Chain.length(Chain())
+Chain.length(Chain(1, 2, 3))
 Chain.tail(Chain())
 Chain.tail(Chain(1.0, 2.0, 3.0))
 Chain.tail(Chain('a', 'b', 'c'))
