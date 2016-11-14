@@ -8,6 +8,11 @@ object Chain {
     case Cons(head, tail) => f(head, foldRight(tail, r)(f))
   }
 
+  def foldLeft[A, B](chain: Chain[A], r: B)(f: (B, A) => B): B = chain match {
+    case Nil => r
+    case Cons(head, tail) => foldLeft(tail, f(r, head))(f)
+  }
+
   def sum(intChain: Chain[Int]): Int = {
     foldRight(intChain, 0)(_ + _)
   }
