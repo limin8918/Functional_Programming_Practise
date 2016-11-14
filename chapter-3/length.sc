@@ -23,6 +23,14 @@ object Chain {
     case Cons(head, tail) => 1 + length(tail)
   }
 
+  def accLength[A](acc: Int, as: Chain[A]): Int = as match {
+    case Nil => acc
+    case Cons(head, tail) => accLength(acc + 1, tail)
+  }
+  //  acc + 1即为foldLeft接收的方法
+
+  def LengthTwo[A](as: Chain[A]): Int = accLength(0, as)
+
   def lengthRight[A](as: Chain[A]): Int = {
     foldRight(as, 0)((x: A, y: Int) => 1 + y)
   }
@@ -35,6 +43,8 @@ object Chain {
 Chain.length(Chain())
 Chain.lengthRight(Chain())
 Chain.lengthLeft(Chain())
+Chain.LengthTwo(Chain())
 Chain.length(Chain(1, 2, 3))
 Chain.lengthRight(Chain(1, 2, 3))
 Chain.lengthLeft(Chain(1, 2, 3))
+Chain.LengthTwo(Chain(1, 2, 3))
