@@ -17,8 +17,16 @@ object Chain {
     foldRight(intChain, 0)(_ + _)
   }
 
+  def sumLeft(intChain: Chain[Int]): Int = {
+    foldLeft(intChain, 0)(_ + _)
+  }
+
   def product(doubleChain: Chain[Double]): Double = {
     foldRight(doubleChain, 1.0)(_ * _)
+  }
+
+  def productLeft(doubleChain: Chain[Double]): Double = {
+    foldLeft(doubleChain, 1.0)(_ * _)
   }
 
   def length[A](as: Chain[A]): Int = {
@@ -66,9 +74,13 @@ object Chain {
 }
 
 Chain.sum(Chain())
+Chain.sumLeft(Chain())
 Chain.sum(Chain(1, 2, 3))
+Chain.sumLeft(Chain(1, 2, 3))
 Chain.product(Chain())
+Chain.productLeft(Chain())
 Chain.product(Chain(1, 2, 3))
+Chain.productLeft(Chain(1, 2, 3))
 Chain.length(Chain())
 Chain.length(Chain(1, 2, 3))
 Chain.tail(Chain())
