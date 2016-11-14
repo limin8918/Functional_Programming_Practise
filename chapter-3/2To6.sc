@@ -9,11 +9,11 @@ object Chain {
   }
 
   def sum(intChain: Chain[Int]): Int = {
-    foldRight(intChain, 0)((x: Int, y: Int) => x + y)
+    foldRight(intChain, 0)(_ + _)
   }
 
   def product(doubleChain: Chain[Double]): Double = {
-    foldRight(doubleChain, 1.0)((x: Double, y: Double) => x * y)
+    foldRight(doubleChain, 1.0)(_ * _)
   }
 
   def apply[A](as: A*): Chain[A] = {
