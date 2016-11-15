@@ -12,6 +12,11 @@ object Tree {
     case Leaf(l) => l
     case Branch(left, right) => maximum(left) max maximum(right)
   }
+
+  def depth(t: Tree[Int]): Int = t match {
+    case Leaf(l) => 0
+    case Branch(left, right) => 1 + (depth(left) max depth(right))
+  }
 }
 
 val leaf1 = Leaf(1)
@@ -30,3 +35,7 @@ Tree.size(branch1)
 Tree.maximum(leaf1)
 Tree.maximum(branch12)
 Tree.maximum(branch1)
+
+Tree.depth(leaf1)
+Tree.depth(branch12)
+Tree.depth(branch1)
