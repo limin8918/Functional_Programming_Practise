@@ -20,9 +20,9 @@ object Chain {
   //  Cons(head, ..)即为foldRight的方法
 
   def appendRight[A](l: Chain[A], r: Chain[A]): Chain[A] = {
-    foldRight(l, r)((head: A, acc: Chain[A]) => Cons(head, acc))
+    foldRight(l, r)((head: A, tail: Chain[A]) => Cons(head, tail))
   }
-  //  foldRight第一个参数为head, 第二个参数为calculate(l, r)之后的值
+  //  foldRight第一个参数为head, 第二个参数可以理解为对tail进行calculate
 }
 
 Chain.append(Chain(1), Nil)

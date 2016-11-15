@@ -32,7 +32,7 @@ object Chain {
   def LengthTwo[A](as: Chain[A]): Int = accLength(0, as)
 
   def lengthRight[A](as: Chain[A]): Int = {
-    foldRight(as, 0)((x: A, y: Int) => 1 + y)
+    foldRight(as, 0)((head: A, tail: Int) => 1 + tail)
   }
 
   def lengthLeft[A](as: Chain[A]): Int = {
