@@ -29,4 +29,10 @@ object Chain {
   def flatMap[A,B](as: Chain[A])(f: A => Chain[B]): Chain[B] = {
     flatten(mapRight(as)(f))
   }
+
+  def filter[A](as: Chain[A])(f: A => Boolean): Chain[A] = {
+    flatMap(as)(head => if(f(head)) Chain(head) else Nil)
+  }
 }
+
+Chain.filter(Chain(1, 2, 3))(item => item > 1)
