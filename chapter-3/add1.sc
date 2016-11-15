@@ -19,7 +19,6 @@ object Chain {
   }
 
   def add1Right(as: Chain[Int]): Chain[Int] = {
-//    foldRight(as, Chain[Int]())((head: Int, tail: Chain[Int]) => Cons(head + 1, tail))
     foldRight(as, Chain[Int]())((head, tail) => Cons(head + 1, tail))
   }
 }
