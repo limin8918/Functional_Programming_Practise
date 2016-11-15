@@ -17,6 +17,11 @@ object Tree {
     case Leaf(l) => 0
     case Branch(left, right) => 1 + (depth(left) max depth(right))
   }
+
+  def map[A, B](t: Tree[A])(f: A => B): Tree[B] = t match {
+    case Leaf(l) => Leaf(f(l))
+    case Branch(left, right) => Branch(map(left)(f), map(right)(f))
+  }
 }
 
 val leaf1 = Leaf(1)
@@ -39,3 +44,7 @@ Tree.maximum(branch1)
 Tree.depth(leaf1)
 Tree.depth(branch12)
 Tree.depth(branch1)
+
+Tree.map(leaf1)(x => x.toDouble * 2)
+Tree.map(branch12)(x => x.toDouble * 2)
+Tree.map(branch1)(x => x.toDouble * 2)
