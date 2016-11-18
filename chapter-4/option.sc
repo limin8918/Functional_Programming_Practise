@@ -42,6 +42,9 @@ def traverse[E, A, B](as: List[A])(f: A => Either[E, B]): Either[E, List[B]] =
     case h::t => f(h).map2(traverse(t)(f))( (x: B, y: List[B] ) => x::y )
   }
 
+def traverse2[E, A, B](as: List[A])(f: A => Either[E, B]): Either[E, List[B]] =
+as.foldRight[Either[E,List[B]]](Right(Nil))((h, t) => f(h).map2(t)(_::_))
+
 def sequence[E, A](es: List[Either[E, A]]): Either[E, List[A]] = {
   traverse(es)(a => a)
 }
