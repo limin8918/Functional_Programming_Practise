@@ -22,6 +22,12 @@ sealed trait Either[+E, +A] {
 
   def map2[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[EE, C] =
     flatMap(a => b.map(b => f(a, b)))
+
+  def map2ViaFor[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[EE, C] =
+    for {
+      aa <- this
+      bb <- b
+    } yield (f(aa, bb))
 }
 
 
@@ -34,4 +40,7 @@ Right(1).flatMap(a => Right(a*2))
 Left(1).orElse(Left(2))
 Right(1).orElse(Left(2))
 
+Left(1).map2(Left(2))((l1: Int, l2: Int) => l1 + l2)
+Left(1).map2ViaFor(Left(2))((l1: Int, l2: Int) => l1 + l2)
 Right(1).map2(Right(2))(_+_)
+Right(1).map2ViaFor(Right(2))(_+_)
