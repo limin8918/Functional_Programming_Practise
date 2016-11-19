@@ -2,6 +2,11 @@ case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
 
 sealed trait Stream[+A] {
+  def toList: List[A] = this match {
+    case Empty => List[A]()
+    case Cons(h, t) => h()::t().toList
+  }
+
   def take(n: Int): Stream[A] = this match {
     case Empty => Empty
     case Cons(h, t) => {
@@ -36,13 +41,13 @@ object Stream {
     if (as.isEmpty) empty else cons(as.head, apply(as.tail: _*))
 }
 
-Stream().take(0)
-Stream().take(1)
-Stream(1, 2, 3).take(2)
-Stream(1, 2, 3).take(4)
+Stream().take(0).toList
+Stream().take(1).toList
+Stream(1, 2, 3).take(2).toList
+Stream(1, 2, 3).take(4).toList
 
-Stream().drop(0)
-Stream().drop(1)
-Stream(1, 2, 3).drop(0)
-Stream(1, 2, 3).drop(1)
-Stream(1, 2, 3).drop(3)
+Stream().drop(0).toList
+Stream().drop(1).toList
+Stream(1, 2, 3).drop(0).toList
+Stream(1, 2, 3).drop(1).toList
+Stream(1, 2, 3).drop(3).toList
