@@ -36,10 +36,17 @@ object Stream {
   }
 
   val ones: Stream[Int] = cons(1, ones)
+  val onesViaFold: Stream[Int] = unfold(1)(x => Some(1, 1))
 
   def constant[A](a: A): Stream[A] = cons(a, constant(a))
+  def constantViaFold[A](a: A): Stream[A] = {
+    unfold(a)(a => Some((a, a)))
+  }
 
   def from(n: Int): Stream[Int] = cons(n, from(n+1))
+  def fromViaFold(n: Int): Stream[Int] = {
+    unfold(n)(n => Some(n, n+1))
+  }
 
   val fibs = {
     def go(f0: Int, f1: Int): Stream[Int] = {
@@ -50,8 +57,11 @@ object Stream {
 }
 
 Stream.ones.take(5).toList
+Stream.onesViaFold.take(5).toList
 Stream.constant('a').take(5).toList
+Stream.constantViaFold('a').take(5).toList
 Stream.from(10).take(5).toList
+Stream.fromViaFold(10).take(5).toList
 Stream.fibs.take(10).toList
 
 
