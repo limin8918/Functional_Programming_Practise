@@ -31,7 +31,10 @@ object Stream {
   val ones: Stream[Int] = cons(1, ones)
 
   def constant[A](a: A): Stream[A] = cons(a, constant(a))
+
+  def from(n: Int): Stream[Int] = cons(n, from(n+1))
 }
 
 Stream.ones.take(5).toList
 Stream.constant('a').take(5).toList
+Stream.from(10).take(5).toList
