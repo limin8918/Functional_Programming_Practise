@@ -33,8 +33,16 @@ object Stream {
   def constant[A](a: A): Stream[A] = cons(a, constant(a))
 
   def from(n: Int): Stream[Int] = cons(n, from(n+1))
+
+  val fibs = {
+    def go(f0: Int, f1: Int): Stream[Int] = {
+      cons(f0, go(f1, (f0+f1)))
+    }
+    go(0, 1)
+  }
 }
 
 Stream.ones.take(5).toList
 Stream.constant('a').take(5).toList
 Stream.from(10).take(5).toList
+Stream.fibs.take(10).toList
