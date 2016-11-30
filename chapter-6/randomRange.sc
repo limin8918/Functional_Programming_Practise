@@ -18,6 +18,16 @@ object RNG {
     else (i, r)
   }
 
+  def ints(count: Int)(rng: RNG): (List[Int], RNG) = {
+    if (count <= 0)
+      (List(), rng)
+    else {
+      val (i, r1) = nonNegativeInt(rng)
+      val (l, r2) = ints(count - 1)(r1)
+      (i::l, r2)
+    }
+  }
+
   def double(rng: RNG): (Double, RNG) = {
     val (i, r) = nonNegativeInt(rng)
     (i / (Int.MaxValue.toDouble + 1), r)
@@ -55,3 +65,5 @@ val (n7, _) = RNG.double(rng)
 val (n8, _) = RNG.double(rng)
 val (n9, _) = RNG.double(rng1)
 
+val (n10, _) = RNG.ints(0)(rng)
+val (n11, _) = RNG.ints(3)(rng)
