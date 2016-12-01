@@ -26,8 +26,14 @@ object RNG {
   }
 
   def nonNegativeEven: Rand[Int] = map(nonNegativeInt)(i => i - i % 2)
+
+  def double: Rand[Double] = {
+    map(nonNegativeInt)(i => (i / (Int.MaxValue.toDouble + 1)))
+  }
 }
 
 val rng =  SimpleRNG(10)
 RNG.nonNegativeEven(rng)
+
+RNG.double(rng)
 
